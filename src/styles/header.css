@@ -1,0 +1,44 @@
+header {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	margin-top: 1.5rem;
+	background-color: var(--green-900);
+	border-radius: 0.25rem 0.25rem 0 0;
+	padding: 0.75rem;
+}
+
+header div {
+	display: flex;
+}
+
+header select {
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	background-color: var(--gray-100);
+	outline: none;
+	font-weight: bold;
+}
+
+.clock, .bombs-count {
+	gap: 0.75rem;
+	font-size: 1.25rem;
+	color: var(--gray-100);
+}
+
+.clock {
+	justify-content: center;
+	align-items: center;
+}
+
+.clock i {
+	color: var(--gold);
+}
+
+.bombs-count {
+	justify-content: end;
+	align-items: center;
+}
+
+.bombs-count i {
+	color: var(--red);
+}
