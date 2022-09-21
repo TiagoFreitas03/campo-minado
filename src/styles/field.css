@@ -1,0 +1,18 @@
+.field {
+	font-family: Iceberg, sans-serif;
+	text-align: center;
+	font-weight: bold;
+	padding: 0.25rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.field:hover {
+	background-color: var(--green-100) !important;
+}
+
+.marked-field {
+	color: var(--red);
+}
