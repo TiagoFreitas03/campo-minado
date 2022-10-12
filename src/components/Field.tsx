@@ -1,16 +1,12 @@
 import { useMemo } from "react"
 
-import { IField } from "../interfaces/IField"
-
 import '../styles/field.css'
-import { COLORS } from "../theme"
+
+import { bomb, flag } from "../assets"
+import { IField } from "../interfaces/IField"
 
 /** Propriedades do campo */
 interface FieldProps extends IField {
-	/** linha do grid */
-	row: number
-	/** coluna do grid */
-	col: number
 	/** número de quadrados do grid */
 	fieldCount: number
 	/** evento para tratar clique com botão direito do mouse */
@@ -19,41 +15,26 @@ interface FieldProps extends IField {
 	onOpen: () => void
 }
 
+/** cor do número de bombas ao redor */
+const COLORS = ['#FFFFFF', '#0A9396', '#005F73', '#CA6702', '#BB3E03', '#AE2012', '#9B2226']
+
+/** campo do grid */
 export function Field(props: FieldProps) {
-	const { state, isBomb, row, col, bombsAround, fieldCount, onMark, onOpen } = props
-
-	/** retorna a cor de fundo do quadrado */
-	function bgColor() {
-		if (state === 'opened' && isBomb)
-			return COLORS.RED
-
-		if ((row + col) % 2 === 0)
-			return state === 'opened' ? COLORS.LIGHT_SAND : COLORS.LIGHT_GREEN
-
-		return state === 'opened' ? COLORS.DARK_SAND : COLORS.DARK_GREEN
-	}
-
-	/** retorna a cor do texto do quadrado */
-	const fieldColor = () => isBomb ? COLORS.BLACK : COLORS.FIELDS[bombsAround] ?? COLORS.BLACK
+	const { state, isBomb, bombsAround, fieldCount, onMark, onOpen } = props
 
 	/** calcula o tamanho do quadrado de acordo com a quantidade de campos total */
 	const fieldSize = useMemo(() => {
-		if (fieldCount <= 80)
-			return 48
-		else if (fieldCount <= 252)
-			return 36
-		else
-			return 30
+		return fieldCount <= 80 ? 48 :
+			fieldCount <= 252 ? 36 : 30
 	}, [fieldCount])
 
 	return (
 		<div
-			className='field'
+			className={`field ${state}`}
 			style={{
-				backgroundColor: bgColor(),
-				color: fieldColor(),
+				color: COLORS[bombsAround] ?? '#000000',
 				height: `${fieldSize}px`,
-				width: `${fieldSize}px`,
+				width: `${fieldSize}px`
 			}}
 			onContextMenu={(e) => {
 				e.preventDefault()
@@ -63,8 +44,8 @@ export function Field(props: FieldProps) {
 		>
 			{
 				state === 'closed' ? '' :
-					state === 'marked' ? <i className="fa-solid fa-flag marked-field" /> :
-						isBomb ? <i className="fa-solid fa-bomb" /> :
+					state === 'marked' ? <img src={flag} /> :
+						isBomb ? <img src={bomb} /> :
 							bombsAround === 0 ? '' : bombsAround
 			}
 		</div>
