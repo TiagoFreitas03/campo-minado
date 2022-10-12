@@ -25,7 +25,11 @@ export function useStopwatch() {
 	}
 
 	/** reinicia o cronômetro */
-	const restart = () => setTime(0)
+	const restart = () => {
+		setRunning(false)
+		clearTimeout(timeoutId)
+		setTime(0)
+	}
 
 	useEffect(() => {
 		if (running) {
