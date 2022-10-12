@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from 'react'
 
 import { Field } from "./components/Field"
 import { Header } from "./components/Header"
 import { useStopwatch } from "./hooks/Stopwatch"
 import { IField } from "./interfaces/IField"
+import { getFieldNeighbors, revealBombs } from './utils'
 
 import './styles/app.css'
 
@@ -16,11 +17,16 @@ export function App() {
 	const { rows, columns, bombs } = settings
 	const { start, stop, restart, time, running } = useStopwatch()
 
-	/** configura o campo minado de acordo com a dificuldade */
-	function handleLevelChange(level: string) {
+	/** reinicia o jogo */
+	function restartGame() {
 		setGameOver(false)
 		setBombsMarked(0)
 		restart()
+	}
+
+	/** configura o campo minado de acordo com a dificuldade */
+	function handleLevelChange(level: string) {
+		restartGame()
 
 		switch (level) {
 			case 'medium': return setSettings({ rows: 14, columns: 18, bombs: 40 })
@@ -30,6 +36,9 @@ export function App() {
 	}
 
 	useEffect(() => {
+		if (gameOver)
+			return
+
 		const auxGrid = Array.from({ length: rows }, () => {
 			return Array.from({ length: columns }, () => {
 				return { state: 'closed', isBomb: false, bombsAround: 0 } as IField
@@ -55,16 +64,7 @@ export function App() {
 		}
 
 		setGrid(auxGrid)
-	}, [rows, columns, bombs])
-
-	/** retorna array com campos ao redor de um campo */
-	const getFieldNeighbors = (r: number, c: number) => {
-		return [
-			[r - 1, c - 1], [r - 1, c], [r - 1, c + 1],
-			[r, c - 1], [r, c + 1],
-			[r + 1, c - 1], [r + 1, c], [r + 1, c + 1]
-		]
-	}
+	}, [rows, columns, bombs, gameOver])
 
 	/** marca campo com "bandeira" */
 	function markField(row: number, col: number) {
@@ -99,7 +99,7 @@ export function App() {
 			start()
 
 		if (grid[row][col].isBomb) {
-			revealBombs()
+			setGrid(revealBombs(grid.slice()))
 			setGameOver(true)
 			return stop()
 		}
@@ -136,24 +136,14 @@ export function App() {
 		}
 	}
 
-	/** revela a posição das bombas */
-	function revealBombs() {
-		const auxGrid = grid.slice()
-
-		for (let i = 0; i < auxGrid.length; i++)
-			for (let j = 0; j < auxGrid[i].length; j++)
-				if (auxGrid[i][j].isBomb)
-					auxGrid[i][j].state = 'opened'
-
-		setGrid(auxGrid)
-	}
-
 	return (
 		<div className="container">
 			<div className="game-container">
-				<h1 className="title">Campo Minado</h1>
-
-				<Header bombs={bombs - bombsMarked} time={time} onChangeLevel={handleLevelChange} />
+				<Header
+					bombs={bombs - bombsMarked}
+					time={time}
+					onChangeLevel={(l) => handleLevelChange(l)}
+				/>
 
 				<div>
 					{ grid.map((row, i) => (
@@ -164,8 +154,6 @@ export function App() {
 									state={column.state}
 									isBomb={column.isBomb}
 									bombsAround={column.bombsAround}
-									row={i}
-									col={j}
 									fieldCount={rows * columns}
 									onMark={() => markField(i, j)}
 									onOpen={() => openField(i, j)}
@@ -175,6 +163,13 @@ export function App() {
 					)) }
 				</div>
 			</div>
+
+			{
+				gameOver &&
+				<button onClick={restartGame}>
+					<i className='fa-solid fa-rotate-right' /> Novo jogo
+				</button>
+			}
 		</div>
 	)
 }
