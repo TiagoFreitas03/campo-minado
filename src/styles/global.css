@@ -1,12 +1,8 @@
 :root {
-	--gray-600: #29292E;
-	--gray-100: #f4f4f5;
-
-	--green-900: #4A752C;
-	--green-100: #C9FB6A;
-
-	--gold: #FBBA00;
-	--red: #F23607;
+	--dark: #212529;
+	--light: #f8f9fa;
+	--blue: #1d4ed8;
+	--gray: #CED4DA;
 }
 
 * {
@@ -17,4 +13,5 @@
 
 body {
 	font-family: Inter, sans-serif;
+	background-color: var(--dark);
 }

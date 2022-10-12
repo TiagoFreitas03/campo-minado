@@ -1,44 +1,38 @@
 header {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	margin-top: 1.5rem;
-	background-color: var(--green-900);
-	border-radius: 0.25rem 0.25rem 0 0;
-	padding: 0.75rem;
+	background-color: var(--light);
+	padding: 1rem;
 }
 
 header div {
 	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+header select, header div p {
+	color: var(--dark);
+	font-weight: bold;
 }
 
 header select {
 	padding: 0.5rem;
-	border-radius: 0.5rem;
-	background-color: var(--gray-100);
+	border-radius: 0.25rem;
 	outline: none;
-	font-weight: bold;
+	font-weight: 500;
+	font-size: 1rem;
 }
 
-.clock, .bombs-count {
-	gap: 0.75rem;
+header div p {
 	font-size: 1.25rem;
-	color: var(--gray-100);
+	border-radius: 0.25rem;
 }
 
-.clock {
+#clock {
 	justify-content: center;
-	align-items: center;
 }
 
-.clock i {
-	color: var(--gold);
-}
-
-.bombs-count {
+#bombs {
 	justify-content: end;
-	align-items: center;
-}
-
-.bombs-count i {
-	color: var(--red);
 }

@@ -3,16 +3,28 @@
 	text-align: center;
 	font-weight: bold;
 	padding: 0.25rem;
-	cursor: pointer;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.field:hover {
-	background-color: var(--green-100) !important;
+.closed, .marked {
+	cursor: pointer;
+	background: linear-gradient(
+		120deg,
+		rgba(30,58,138,1) 0%,
+		rgba(30,64,175,1) 25%,
+		rgba(29,78,216,1) 50%,
+		rgba(37,99,235,1) 75%,
+		rgba(59,130,246,1) 100%
+	);
 }
 
-.marked-field {
-	color: var(--red);
+.opened {
+	background-color: var(--gray);
+	border: 2px inset #adb5bd;
+}
+
+.closed:hover {
+	background: var(--dark) !important;
 }
