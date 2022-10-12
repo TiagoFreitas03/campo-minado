@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from 'react'
 
 import '../styles/header.css'
 
-/** propriedades do header */
+import { clock, flag } from "../assets"
+
+/** proprieades do header */
 interface HeaderProps {
 	/** número de bombas restantes no jogo */
 	bombs: number
@@ -12,6 +14,7 @@ interface HeaderProps {
 	onChangeLevel: (level: string) => void
 }
 
+/** cabeçalho do jogo */
 export function Header({ bombs, time, onChangeLevel }: HeaderProps) {
 	const [level, setLevel] = useState('easy')
 
@@ -29,14 +32,14 @@ export function Header({ bombs, time, onChangeLevel }: HeaderProps) {
 				</select>
 			</div>
 
-			<div className="clock">
-				<i className="fa-regular fa-clock" />
+			<div id='clock'>
+				<img src={clock} alt="" width={28} height={28} />
 
 				<p>{time}</p>
 			</div>
 
-			<div className="bombs-count">
-				<i className="fa-solid fa-flag" />
+			<div id='bombs'>
+				<img src={flag} alt="" width={28} height={28} />
 
 				<p>{bombs}</p>
 			</div>
