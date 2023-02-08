@@ -6,9 +6,7 @@
 
 ## 💣 Projeto
 
-O Campo minado é um jogo que tem como objetivo revelar um campo de minas sem que alguma seja detonada.
-
-<br />
+O Campo minado é um jogo que tem como objetivo revelar um campo de minas sem que nenhuma seja detonada.
 
 ## 💻 Tecnologias
 
@@ -21,8 +19,10 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 ## 🚀 Como executar
 
 - Clone o repositório
-- Instale as dependências com `yarn`
-- Inicie a aplicação com `yarn dev`
+- Instale as dependências com `npm install`
+- Inicie a aplicação com `npm run dev`
+
+A aplicação pode ser acessada em [`localhost:5173`](http://localhost:5173).
 
 ## 📄 Licença
 
