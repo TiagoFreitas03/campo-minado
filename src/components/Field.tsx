@@ -34,7 +34,8 @@ export function Field(props: FieldProps) {
 			style={{
 				color: COLORS[bombsAround] ?? '#000000',
 				height: `${fieldSize}px`,
-				width: `${fieldSize}px`
+				width: `${fieldSize}px`,
+				cursor: state === 'closed' ? 'pointer' : 'default'
 			}}
 			onContextMenu={(e) => {
 				e.preventDefault()
